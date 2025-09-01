@@ -148,8 +148,8 @@ img { width: 100%; image-rendering: pixelated; image-rendering: crisp-edges; bor
   padding: 5px 10px;
   border-radius: 5px;
   border: 1px solid #555;
-  background: var(--bg);      /* fondo oscuro */
-  color: var(--fg);           /* texto claro */
+  background: rgba(255,255,255,0.1); /* más contraste */
+  color: var(--fg);
   font-size: 14px;
 }
 
