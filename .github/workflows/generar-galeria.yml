@@ -15,6 +15,8 @@ jobs:
     steps:
     - name: Chequear repo
       uses: actions/checkout@v3
+      with:
+        persist-credentials: true  # Esto permite usar GITHUB_TOKEN para push
 
     - name: Configurar Node.js
       uses: actions/setup-node@v3
@@ -34,7 +36,7 @@ jobs:
             console.log('El directorio assets/img no existe. No se genera galeria.json.');
             fs.writeFileSync(outputFile, JSON.stringify([], null, 2));
             process.exit(0);
-         }   
+        }   
 
         function walkDir(dir) {
           const files = fs.readdirSync(dir, { withFileTypes: true });
@@ -46,7 +48,7 @@ jobs:
             } else if (/\.(png|jpg|jpeg|gif)$/i.test(file.name)) {
               const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g,'/');
               const parts = relativePath.split('/');
-              const year = parts[2]; // assets/img/2023/AmongUsPingu.png → 2023
+              const year = parts[2]; 
               const category = parts[3] || 'Sin Categoria';
               results.push({year: parseInt(year), category, url: relativePath});
             }
@@ -61,8 +63,6 @@ jobs:
 
     - name: Commit y push
       run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add galeria.json
         git commit -m "Actualizar galeria.json [Automático]" || echo "No hay cambios"
         git push
