@@ -36,6 +36,12 @@ jobs:
         const imgDir = path.join(process.cwd(), 'assets/img');
         const outputFile = path.join(process.cwd(), 'galeria.json');
 
+        if (!fs.existsSync(imgDir)) {
+            console.log('El directorio assets/img no existe. Se genera un galeria.json vacío.');
+            fs.writeFileSync(outputFile, JSON.stringify([], null, 2));
+            process.exit(0);
+        }
+
         function walkDir(dir) {
           const files = fs.readdirSync(dir, { withFileTypes: true });
           let results = [];
@@ -46,15 +52,9 @@ jobs:
             } else if (/\.(png|jpg|jpeg|gif)$/i.test(file.name)) {
               const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g,'/');
               const parts = relativePath.split('/');
-
               const year = parseInt(parts[2]);
-              const tags = parts.slice(3, -1); // toma todas las carpetas después del año, antes del archivo
-
-              results.push({
-                year,
-                tags,
-                url: relativePath
-              });
+              const tags = parts.slice(3, -1); // todas las carpetas después del año
+              results.push({ year, tags, url: relativePath });
             }
           }
           return results;
@@ -63,7 +63,6 @@ jobs:
         const images = walkDir(imgDir);
         fs.writeFileSync(outputFile, JSON.stringify(images, null, 2));
         console.log(`galeria.json generado con ${images.length} imágenes`);
-
         EOF
 
 
