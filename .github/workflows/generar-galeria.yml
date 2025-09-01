@@ -1,5 +1,9 @@
 name: Generar Galería JSON
 
+# Permisos para permitir que GitHub Actions haga push
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -10,11 +14,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1️⃣ Checkout del repo
+    # 1️⃣ Checkout del repo con token para push
     - name: Chequear repo
       uses: actions/checkout@v3
       with:
-        persist-credentials: true  # Permite push con GITHUB_TOKEN
+        persist-credentials: true
 
     # 2️⃣ Configurar Node.js
     - name: Configurar Node.js
@@ -36,7 +40,7 @@ jobs:
             console.log('El directorio assets/img no existe. Se genera un galeria.json vacío.');
             fs.writeFileSync(outputFile, JSON.stringify([], null, 2));
             process.exit(0);
-        }   
+        }
 
         function walkDir(dir) {
           const files = fs.readdirSync(dir, { withFileTypes: true });
@@ -48,7 +52,7 @@ jobs:
             } else if (/\.(png|jpg|jpeg|gif)$/i.test(file.name)) {
               const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g,'/');
               const parts = relativePath.split('/');
-              const year = parts[2]; // assets/img/2023/Imagen.png → 2023
+              const year = parts[2]; 
               const category = parts[3] || 'Sin Categoria';
               results.push({year: parseInt(year), category, url: relativePath});
             }
@@ -61,7 +65,7 @@ jobs:
         console.log(`galeria.json generado con ${images.length} imágenes`);
         EOF
 
-    # 4️⃣ Commit y push automático
+    # 4️⃣ Commit y push automático usando GITHUB_TOKEN
     - name: Commit y push
       run: |
         git config user.name "github-actions[bot]"
@@ -69,5 +73,3 @@ jobs:
         git add galeria.json
         git commit -m "Actualizar galeria.json [Automático]" || echo "No hay cambios"
         git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
