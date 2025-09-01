@@ -1,0 +1,29 @@
+/* Reset mínimo */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+:root {
+  --bg: #0f1115;    /* oscuro pero no negro puro */
+  --fg: #eaeef3;    /* texto claro */
+  --muted: #9aa4b2; /* texto secundario */
+  --brand: #6cf;    /* acento suave */
+}
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, sans-serif; background: var(--bg); color: var(--fg); }
+.wrap { max-width: 980px; margin: 0 auto; padding: 24px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+header h1 { margin: 0; font-size: 28px; }
+header p { margin: 0; color: var(--muted); }
+nav a { margin-right: 12px; color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
+nav a:hover { border-bottom-color: var(--brand); }
+
+h2 { margin-top: 40px; font-size: 22px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
+figure { margin: 0; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 16px; }
+figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; }
+
+/* Imágenes nítidas para pixel art */
+img { width: 100%; image-rendering: pixelated; image-rendering: crisp-edges; }
+
+footer { margin-top: 40px; color: var(--muted); }
+
+/* Accesibilidad básica */
+a:focus { outline: 2px dashed var(--brand); outline-offset: 3px; }

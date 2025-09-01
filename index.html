@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mi Portfolio | Pixel Art</title>
+
+    <!-- SEO básico -->
+    <meta name="description" content="Portfolio de pixel art, comisiones y proyectos." />
+    <meta name="author" content="Tu Nombre" />
+    <meta property="og:title" content="Mi Portfolio | Pixel Art" />
+    <meta property="og:description" content="Trabajos, encargos y contacto." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://tuusuario.github.io/assets/img/preview.png" />
+
+    <link rel="icon" href="/assets/img/favicon.png" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="wrap">
+      <h1>Tu Nombre</h1>
+      <p>Pixel Artist · Comisiones abiertas</p>
+      <nav>
+        <a href="#galeria">Galería</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </header>
+
+    <main class="wrap">
+      <section id="galeria">
+        <h2>Galería</h2>
+        <div class="grid">
+          <!-- Repetí estos <figure> por cada imagen -->
+          <figure>
+            <img src="/assets/img/obra-01.png" alt="Título de la obra 01" loading="lazy" />
+            <figcaption>Obra 01 · 2025</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/img/obra-02.png" alt="Título de la obra 02" loading="lazy" />
+            <figcaption>Obra 02 · 2025</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="sobre-mi">
+        <h2>Sobre mí</h2>
+        <p>Breve bio. Estilos, herramientas y lo que ofrecés en comisiones.</p>
+      </section>
+
+      <section id="contacto">
+        <h2>Contacto</h2>
+        <ul>
+          <li>Email: <a href="mailto:tucorreo@example.com">tucorreo@example.com</a></li>
+          <li>X/Twitter: <a href="https://x.com/tuusuario" target="_blank" rel="noopener">@tuusuario</a></li>
+          <li>Instagram: <a href="https://instagram.com/tuusuario" target="_blank" rel="noopener">@tuusuario</a></li>
+        </ul>
+        <!-- Si querés un formulario sin backend, ver sección 10 -->
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <small>© <span id="y"></span> Tu Nombre — Hecho con GitHub Pages</small>
+    </footer>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
