@@ -83,7 +83,7 @@
         yearFilter.appendChild(opt);
       });
 
-      const categories = [...new Set(images.map(i => i.category))].sort();
+      const categories = [...new Set(images.map(i => i.tags))].sort();
       categories.forEach(c => {
         const opt = document.createElement('option');
         opt.value = c;
