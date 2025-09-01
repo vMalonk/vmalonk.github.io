@@ -3,59 +3,175 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galería vMalonk</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Galería Mejorada</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #1e1e1e;
+      color: #fff;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .controls {
+      margin: 20px 0;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    select {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #555;
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    .imagenes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .imagenes img {
+      max-width: 200px;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #555;
+      transition: transform 0.2s;
+    }
+
+    .imagenes img:hover {
+      transform: scale(1.05);
+      border-color: #fff;
+    }
+
+    .pagination {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .pagination button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid #555;
+      background: #2a2a2a;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .pagination button.active {
+      background: #555;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Galería vMalonk</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-    </nav>
-  </header>
+  <h1>Galería Mejorada</h1>
 
-  <main>
-    <section id="galeria">
-      <h2>Galería</h2>
-    </section>
-  </main>
+  <div class="controls">
+    <label>Año:
+      <select id="yearFilter"></select>
+    </label>
+    <label>Categoría:
+      <select id="categoryFilter">
+        <option value="all">Todas</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="galeria" class="imagenes"></div>
+
+  <div class="pagination" id="pagination"></div>
 
   <script>
+    let images = [];
+    let currentPage = 1;
+    const perPage = 12; // imágenes por página
+    let filteredImages = [];
+
+    const galeriaDiv = document.getElementById('galeria');
+    const yearFilter = document.getElementById('yearFilter');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const paginationDiv = document.getElementById('pagination');
+
+    // Cargar galeria.json
     fetch('galeria.json')
       .then(res => res.json())
       .then(data => {
-        const galeria = document.getElementById('galeria');
-        const años = {};
+        images = data.sort((a,b) => b.year - a.year);
 
-        data.forEach(item => {
-          if (!años[item.year]) años[item.year] = {};
-          if (!años[item.year][item.category]) años[item.year][item.category] = [];
-          años[item.year][item.category].push(item.url);
-        });
+        populateFilters();
+        applyFilters();
+      })
+      .catch(err => console.error('Error cargando la galería:', err));
 
-        Object.keys(años)
-          .sort((a,b)=>b-a) // último año primero
-          .forEach(year=>{
-            const yearDiv = document.createElement('div');
-            yearDiv.className = 'year';
-            yearDiv.innerHTML = `<h3>${year}</h3>`;
-
-            Object.keys(años[year]).forEach(cat=>{
-              const catDiv = document.createElement('div');
-              catDiv.className = 'category';
-              catDiv.innerHTML = `<h4>${cat}</h4><div class="grid"></div>`;
-              const grid = catDiv.querySelector('.grid');
-              años[year][cat].forEach(url=>{
-                const figure = document.createElement('figure');
-                figure.innerHTML = `<img src="${url}" alt="${cat}"><figcaption>${cat}</figcaption>`;
-                grid.appendChild(figure);
-              });
-              yearDiv.appendChild(catDiv);
-            });
-
-            galeria.appendChild(yearDiv);
-          });
+    function populateFilters() {
+      const years = [...new Set(images.map(i => i.year))].sort((a,b) => b - a);
+      years.forEach(y => {
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y;
+        yearFilter.appendChild(opt);
       });
+
+      const categories = [...new Set(images.map(i => i.category))].sort();
+      categories.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = c;
+        categoryFilter.appendChild(opt);
+      });
+
+      yearFilter.addEventListener('change', () => { currentPage = 1; applyFilters(); });
+      categoryFilter.addEventListener('change', () => { currentPage = 1; applyFilters(); });
+    }
+
+    function applyFilters() {
+      const year = yearFilter.value;
+      const category = categoryFilter.value;
+
+      filteredImages = images.filter(img => 
+        (year === "" || img.year == year) &&
+        (category === "all" || img.category === category)
+      );
+
+      renderGallery();
+      renderPagination();
+    }
+
+    function renderGallery() {
+      galeriaDiv.innerHTML = "";
+      const start = (currentPage-1) * perPage;
+      const end = start + perPage;
+      filteredImages.slice(start,end).forEach(img => {
+        const imgEl = document.createElement('img');
+        imgEl.src = img.url;
+        galeriaDiv.appendChild(imgEl);
+      });
+    }
+
+    function renderPagination() {
+      paginationDiv.innerHTML = "";
+      const totalPages = Math.ceil(filteredImages.length / perPage);
+      if(totalPages <= 1) return;
+
+      for(let i=1; i<=totalPages; i++){
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        if(i===currentPage) btn.classList.add('active');
+        btn.addEventListener('click', () => { currentPage = i; renderGallery(); renderPagination(); });
+        paginationDiv.appendChild(btn);
+      }
+    }
   </script>
 </body>
 </html>
