@@ -19,3 +19,43 @@
       <h2>Galería</h2>
     </section>
   </main>
+
+  <script>
+    fetch('galeria.json')
+      .then(res => res.json())
+      .then(data => {
+        const galeria = document.getElementById('galeria');
+        const años = {};
+
+        data.forEach(item => {
+          if (!años[item.year]) años[item.year] = {};
+          if (!años[item.year][item.category]) años[item.year][item.category] = [];
+          años[item.year][item.category].push(item.url);
+        });
+
+        Object.keys(años)
+          .sort((a,b)=>b-a) // último año primero
+          .forEach(year=>{
+            const yearDiv = document.createElement('div');
+            yearDiv.className = 'year';
+            yearDiv.innerHTML = `<h3>${year}</h3>`;
+
+            Object.keys(años[year]).forEach(cat=>{
+              const catDiv = document.createElement('div');
+              catDiv.className = 'category';
+              catDiv.innerHTML = `<h4>${cat}</h4><div class="grid"></div>`;
+              const grid = catDiv.querySelector('.grid');
+              años[year][cat].forEach(url=>{
+                const figure = document.createElement('figure');
+                figure.innerHTML = `<img src="${url}" alt="${cat}"><figcaption>${cat}</figcaption>`;
+                grid.appendChild(figure);
+              });
+              yearDiv.appendChild(catDiv);
+            });
+
+            galeria.appendChild(yearDiv);
+          });
+      });
+  </script>
+</body>
+</html>
