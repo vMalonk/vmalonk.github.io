@@ -1,12 +1,16 @@
 [
   {
     "year": 2023,
-    "tags": [],
-    "url": "assets/img/2023/AmongUsPingu.png"
+    "tags": [
+      "personal"
+    ],
+    "url": "assets/img/2023/personal/AmongUsPingu.png"
   },
   {
     "year": 2023,
-    "tags": [],
-    "url": "assets/img/2023/Han Chun-Woo.png"
+    "tags": [
+      "personal"
+    ],
+    "url": "assets/img/2023/personal/Han Chun-Woo.png"
   }
 ]
