@@ -1,4 +1,6 @@
-/* Reset mínimo */
+/* =========================
+   RESET BÁSICO
+========================= */
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 
@@ -16,20 +18,46 @@ body {
   padding: 24px;
 }
 
+/* =========================
+   INDEX / HEADER / NAVBAR
+========================= */
 .wrap { max-width: 980px; margin: 0 auto; }
 
-/* Encabezados y texto */
-h1 { font-size: 28px; text-align: center; margin-bottom: 20px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+header h1 { margin: 0; font-size: 28px; }
+header p { margin: 0; color: var(--muted); }
+
+nav a {
+  margin-right: 12px;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+nav a:hover { border-bottom-color: var(--brand); }
+
+/* =========================
+   TEXTOS GENERALES
+========================= */
+h1 { text-align: center; }
 h2 { margin-top: 40px; font-size: 22px; }
 h3 { margin-top: 20px; font-size: 18px; color: var(--brand); }
 
-/* Links */
-a { color: var(--fg); text-decoration: none; border-bottom: 1px solid transparent; }
-a:hover { border-bottom-color: var(--brand); }
-a:focus { outline: 2px dashed var(--brand); outline-offset: 3px; }
+footer { margin-top: 40px; color: var(--muted); }
 
-/* Filtros y controles */
-.controls {
+/* =========================
+   IMÁGENES NÍTIDAS
+========================= */
+img { width: 100%; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; }
+
+/* =========================
+   GALERÍA
+========================= */
+.galeria-wrap {
+  margin-top: 40px;
+}
+
+.galeria-wrap .controls {
   margin: 20px 0;
   display: flex;
   gap: 20px;
@@ -37,7 +65,7 @@ a:focus { outline: 2px dashed var(--brand); outline-offset: 3px; }
   justify-content: center;
 }
 
-select {
+.galeria-wrap .controls select {
   padding: 5px 10px;
   border-radius: 5px;
   border: 1px solid #555;
@@ -46,36 +74,31 @@ select {
   font-size: 14px;
 }
 
-/* Galería */
-.imagenes {
+.galeria-wrap .imagenes {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 16px;
   margin-top: 20px;
 }
 
-.imagenes img {
-  width: 100%;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  border-radius: 12px;
+.galeria-wrap .imagenes img {
   border: 2px solid rgba(255,255,255,0.1);
   transition: transform 0.2s, border-color 0.2s;
   cursor: pointer;
 }
 
-.imagenes img:hover {
+.galeria-wrap .imagenes img:hover {
   transform: scale(1.05);
   border-color: var(--brand);
 }
 
 /* Paginación */
-.pagination {
+.galeria-wrap .pagination {
   margin: 20px 0;
   text-align: center;
 }
 
-.pagination button {
+.galeria-wrap .pagination button {
   margin: 0 5px;
   padding: 5px 10px;
   border-radius: 5px;
@@ -85,13 +108,13 @@ select {
   cursor: pointer;
 }
 
-.pagination button.active {
+.galeria-wrap .pagination button.active {
   background: var(--brand);
   color: var(--bg);
 }
 
 /* Modal */
-#modal {
+.galeria-wrap #modal {
   display: none;
   position: fixed;
   z-index: 1000;
@@ -102,15 +125,14 @@ select {
   align-items: center;
 }
 
-#modal img {
+.galeria-wrap #modal img {
   max-width: 90%;
   max-height: 90%;
-  border-radius: 8px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
 
-#modal span {
+.galeria-wrap #modal span {
   position: absolute;
   top: 20px;
   right: 30px;
@@ -118,3 +140,8 @@ select {
   cursor: pointer;
   color: var(--fg);
 }
+
+/* =========================
+   ACCESIBILIDAD
+========================= */
+a:focus { outline: 2px dashed var(--brand); outline-offset: 3px; }
