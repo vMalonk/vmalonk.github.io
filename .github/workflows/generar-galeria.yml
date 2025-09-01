@@ -25,7 +25,7 @@ jobs:
         const path = require('path');
 
         const imgDir = path.join(process.cwd(), 'assets/img');
-        const outputFile = path.join(__dirname, '../../galeria.json');
+        const outputFile = path.join(process.cwd(), 'galeria.json');
 
         function walkDir(dir) {
           const files = fs.readdirSync(dir, { withFileTypes: true });
@@ -35,9 +35,9 @@ jobs:
             if (file.isDirectory()) {
               results = results.concat(walkDir(fullPath));
             } else if (/\.(png|jpg|jpeg|gif)$/i.test(file.name)) {
-              const relativePath = path.relative(path.join(__dirname,'../../'), fullPath).replace(/\\/g,'/');
+              const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g,'/');
               const parts = relativePath.split('/');
-              const year = parts[2]; 
+              const year = parts[2]; // assets/img/2023/AmongUsPingu.png → 2023
               const category = parts[3] || 'Sin Categoria';
               results.push({year: parseInt(year), category, url: relativePath});
             }
