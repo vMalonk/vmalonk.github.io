@@ -34,19 +34,20 @@ fetch('galeria.json')
 // -------------------- FILTROS --------------------
 function populateFilters() {
   // Years
-  const years = [...new Set(images.map(i => i.year))].sort((a,b) => b - a);
+    yearFilter.innerHTML = ""; // Limpia cualquier opción previa
 
-  const defaultYearOpt = document.createElement('option');
-  defaultYearOpt.value = "all";
-  defaultYearOpt.textContent = "Todos";
-  yearFilter.appendChild(defaultYearOpt);
+    const defaultYearOpt = document.createElement('option');
+    defaultYearOpt.value = "all";
+    defaultYearOpt.textContent = "Todos";
+    yearFilter.appendChild(defaultYearOpt);
 
-  years.forEach(y => {
+    const years = [...new Set(images.map(i => i.year))].sort((a,b) => b - a);
+    years.forEach(y => {
     const opt = document.createElement('option');
     opt.value = y;
     opt.textContent = y;
     yearFilter.appendChild(opt);
-  });
+    });
 
   // Categories/tags
   const allTags = [...new Set(images.flatMap(img => img.tags))].sort();
