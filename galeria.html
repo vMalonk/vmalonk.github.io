@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vMalonk - Portfolio</title>
-  <link rel="stylesheet" href="/styles.css" />
+  <title>Galería con Modal</title>
   <style>
     body {
       font-family: sans-serif;
@@ -48,6 +47,7 @@
       border-radius: 8px;
       border: 2px solid #555;
       transition: transform 0.2s;
+      cursor: pointer;
     }
 
     .imagenes img:hover {
@@ -103,7 +103,7 @@
   </style>
 </head>
 <body>
-  <h1>Portfolio</h1>
+  <h1>Galería con Modal</h1>
 
   <div class="controls">
     <label>Año:
@@ -129,7 +129,7 @@
   <script>
     let images = [];
     let currentPage = 1;
-    const perPage = 12; // imágenes por página
+    const perPage = 12;
     let filteredImages = [];
 
     const galeriaDiv = document.getElementById('galeria');
@@ -137,12 +137,25 @@
     const categoryFilter = document.getElementById('categoryFilter');
     const paginationDiv = document.getElementById('pagination');
 
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalClose = document.getElementById('modalClose');
+
+    // Abrir modal al clickear una imagen
+    function openModal(src) {
+      modal.style.display = 'flex';
+      modalImg.src = src;
+    }
+
+    // Cerrar modal
+    modalClose.onclick = () => { modal.style.display = 'none'; }
+    modal.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; }
+
     // Cargar galeria.json
     fetch('galeria.json')
       .then(res => res.json())
       .then(data => {
         images = data.sort((a,b) => b.year - a.year);
-
         populateFilters();
         applyFilters();
       })
@@ -189,6 +202,7 @@
       filteredImages.slice(start,end).forEach(img => {
         const imgEl = document.createElement('img');
         imgEl.src = img.url;
+        imgEl.onclick = () => openModal(img.url);
         galeriaDiv.appendChild(imgEl);
       });
     }
