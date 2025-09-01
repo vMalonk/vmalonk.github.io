@@ -144,6 +144,20 @@ img { width: 100%; image-rendering: pixelated; image-rendering: crisp-edges; bor
   color: var(--fg);
 }
 
+.galeria-wrap .controls select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background: var(--bg);      /* fondo oscuro */
+  color: var(--fg);           /* texto claro */
+  font-size: 14px;
+}
+
+.galeria-wrap .controls select option {
+  background: var(--bg);      /* fondo oscuro para las opciones */
+  color: var(--fg);           /* texto claro */
+}
+
 /* =========================
    ACCESIBILIDAD
 ========================= */
