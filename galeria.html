@@ -1,138 +1,147 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vMalonk - Portfolio</title>
-  <link rel="stylesheet" href="/styles.css" />
-</head>
-<body>
-  <header class="wrap">
-    <h1>vMalonk</h1>
-    <p>Pixel Artist · Comisiones abiertas</p>
-    <nav>
-    <a href="galeria.html">Galería</a>
-    <a href="sobre-mi.html">Sobre mí</a>
-    <a href="contacto.html">Contacto</a>
-    </nav>
-  </header>
-  <h1>Portfolio</h1>
-<div class="galeria-wrap">
-  <div class="controls">
-    <label>Año:
-      <select id="yearFilter"></select>
-    </label>
-    <label>Categoría:
-      <select id="categoryFilter">
-        <option value="all">Todas</option>
-      </select>
-    </label>
-  </div>
+/* =========================
+   RESET BÁSICO
+========================= */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 
-  <div id="galeria" class="imagenes"></div>
-  <div class="pagination" id="pagination"></div>
+:root {
+  --bg: #0f1115;    /* oscuro pero no negro puro */
+  --fg: #eaeef3;    /* texto claro */
+  --muted: #9aa4b2; /* texto secundario */
+  --brand: #6cf;    /* acento suave */
+}
 
-  <!-- Modal -->
-  <div id="modal">
-    <span id="modalClose">&times;</span>
-    <img id="modalImg" src="">
-  </div>
-</div>
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  padding: 24px;
+}
 
-  <script>
-    let images = [];
-    let currentPage = 1;
-    const perPage = 12;
-    let filteredImages = [];
+/* =========================
+   INDEX / HEADER / NAVBAR
+========================= */
+.wrap { max-width: 980px; margin: 0 auto; }
 
-    const galeriaDiv = document.getElementById('galeria');
-    const yearFilter = document.getElementById('yearFilter');
-    const categoryFilter = document.getElementById('categoryFilter');
-    const paginationDiv = document.getElementById('pagination');
+header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+header h1 { margin: 0; font-size: 28px; }
+header p { margin: 0; color: var(--muted); }
 
-    const modal = document.getElementById('modal');
-    const modalImg = document.getElementById('modalImg');
-    const modalClose = document.getElementById('modalClose');
+nav a {
+  margin-right: 12px;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
 
-    // Abrir modal al clickear una imagen
-    function openModal(src) {
-      modal.style.display = 'flex';
-      modalImg.src = src;
-    }
+nav a:hover { border-bottom-color: var(--brand); }
 
-    // Cerrar modal
-    modalClose.onclick = () => { modal.style.display = 'none'; }
-    modal.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; }
+/* =========================
+   TEXTOS GENERALES
+========================= */
+h1 { text-align: center; }
+h2 { margin-top: 40px; font-size: 22px; }
+h3 { margin-top: 20px; font-size: 18px; color: var(--brand); }
 
-    // Cargar galeria.json
-    fetch('galeria.json')
-      .then(res => res.json())
-      .then(data => {
-        images = data.sort((a,b) => b.year - a.year);
-        populateFilters();
-        applyFilters();
-      })
-      .catch(err => console.error('Error cargando la galería:', err));
+footer { margin-top: 40px; color: var(--muted); }
 
-    function populateFilters() {
-      const years = [...new Set(images.map(i => i.year))].sort((a,b) => b - a);
-      years.forEach(y => {
-        const opt = document.createElement('option');
-        opt.value = y;
-        opt.textContent = y;
-        yearFilter.appendChild(opt);
-      });
+/* =========================
+   IMÁGENES NÍTIDAS
+========================= */
+img { width: 100%; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; }
 
-      const categories = [...new Set(images.map(i => i.category))].sort();
-      categories.forEach(c => {
-        const opt = document.createElement('option');
-        opt.value = c;
-        opt.textContent = c;
-        categoryFilter.appendChild(opt);
-      });
+/* =========================
+   GALERÍA
+========================= */
+.galeria-wrap {
+  margin-top: 40px;
+}
 
-      yearFilter.addEventListener('change', () => { currentPage = 1; applyFilters(); });
-      categoryFilter.addEventListener('change', () => { currentPage = 1; applyFilters(); });
-    }
+.galeria-wrap .controls {
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    function applyFilters() {
-      const year = yearFilter.value;
-      const category = categoryFilter.value;
+.galeria-wrap .controls select {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background: rgba(255,255,255,0.05);
+  color: var(--fg);
+  font-size: 14px;
+}
 
-      filteredImages = images.filter(img => 
-        (year === "" || img.year == year) &&
-        (category === "all" || img.category === category)
-      );
+.galeria-wrap .imagenes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
 
-      renderGallery();
-      renderPagination();
-    }
+.galeria-wrap .imagenes img {
+  border: 2px solid rgba(255,255,255,0.1);
+  transition: transform 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
 
-    function renderGallery() {
-      galeriaDiv.innerHTML = "";
-      const start = (currentPage-1) * perPage;
-      const end = start + perPage;
-      filteredImages.slice(start,end).forEach(img => {
-        const imgEl = document.createElement('img');
-        imgEl.src = img.url;
-        imgEl.onclick = () => openModal(img.url);
-        galeriaDiv.appendChild(imgEl);
-      });
-    }
+.galeria-wrap .imagenes img:hover {
+  transform: scale(1.05);
+  border-color: var(--brand);
+}
 
-    function renderPagination() {
-      paginationDiv.innerHTML = "";
-      const totalPages = Math.ceil(filteredImages.length / perPage);
-      if(totalPages <= 1) return;
+/* Paginación */
+.galeria-wrap .pagination {
+  margin: 20px 0;
+  text-align: center;
+}
 
-      for(let i=1; i<=totalPages; i++){
-        const btn = document.createElement('button');
-        btn.textContent = i;
-        if(i===currentPage) btn.classList.add('active');
-        btn.addEventListener('click', () => { currentPage = i; renderGallery(); renderPagination(); });
-        paginationDiv.appendChild(btn);
-      }
-    }
-  </script>
-</body>
-</html>
+.galeria-wrap .pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  background: rgba(255,255,255,0.05);
+  color: var(--fg);
+  cursor: pointer;
+}
+
+.galeria-wrap .pagination button.active {
+  background: var(--brand);
+  color: var(--bg);
+}
+
+/* Modal */
+.galeria-wrap #modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+.galeria-wrap #modal img {
+  max-width: 90%;
+  max-height: 90%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.galeria-wrap #modal span {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  cursor: pointer;
+  color: var(--fg);
+}
+
+/* =========================
+   ACCESIBILIDAD
+========================= */
+a:focus { outline: 2px dashed var(--brand); outline-offset: 3px; }
