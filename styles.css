@@ -48,7 +48,7 @@ footer { margin-top: 40px; color: var(--muted); }
 /* =========================
    IMÁGENES NÍTIDAS
 ========================= */
-img { width: 100%; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; }
+img { height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; }
 
 /* =========================
    GALERÍA
