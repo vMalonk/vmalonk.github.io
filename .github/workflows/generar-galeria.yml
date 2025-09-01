@@ -4,25 +4,25 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'assets/img/**'
-      - '.github/workflows/generar-galeria.yml'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
+    # 1️⃣ Checkout del repo
     - name: Chequear repo
       uses: actions/checkout@v3
       with:
-        persist-credentials: true  # Esto permite usar GITHUB_TOKEN para push
+        persist-credentials: true  # Permite push con GITHUB_TOKEN
 
+    # 2️⃣ Configurar Node.js
     - name: Configurar Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
 
+    # 3️⃣ Generar galeria.json
     - name: Generar galeria.json
       run: |
         node <<'EOF'
@@ -33,7 +33,7 @@ jobs:
         const outputFile = path.join(process.cwd(), 'galeria.json');
 
         if (!fs.existsSync(imgDir)) {
-            console.log('El directorio assets/img no existe. No se genera galeria.json.');
+            console.log('El directorio assets/img no existe. Se genera un galeria.json vacío.');
             fs.writeFileSync(outputFile, JSON.stringify([], null, 2));
             process.exit(0);
         }   
@@ -48,7 +48,7 @@ jobs:
             } else if (/\.(png|jpg|jpeg|gif)$/i.test(file.name)) {
               const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g,'/');
               const parts = relativePath.split('/');
-              const year = parts[2]; 
+              const year = parts[2]; // assets/img/2023/Imagen.png → 2023
               const category = parts[3] || 'Sin Categoria';
               results.push({year: parseInt(year), category, url: relativePath});
             }
@@ -61,18 +61,13 @@ jobs:
         console.log(`galeria.json generado con ${images.length} imágenes`);
         EOF
 
+    # 4️⃣ Commit y push automático
     - name: Commit y push
       run: |
-        git add galeria.json
-        git commit -m "Actualizar galeria.json [Automático]" || echo "No hay cambios"
-        git push
-
-    - name: Commit y push
-      run: |
-        git config user.name "github-actions[bot]" 
+        git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add galeria.json
         git commit -m "Actualizar galeria.json [Automático]" || echo "No hay cambios"
         git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
