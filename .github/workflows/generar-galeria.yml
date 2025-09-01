@@ -2,8 +2,11 @@ name: Generar Galería JSON
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'assets/img/**'
+      - '.github/workflows/generar-galeria.yml'
 
 jobs:
   build:
