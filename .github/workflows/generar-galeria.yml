@@ -24,7 +24,7 @@ jobs:
         const fs = require('fs');
         const path = require('path');
 
-        const imgDir = path.join(__dirname, '../../assets/img');
+        const imgDir = path.join(process.cwd(), 'assets/img');
         const outputFile = path.join(__dirname, '../../galeria.json');
 
         function walkDir(dir) {
