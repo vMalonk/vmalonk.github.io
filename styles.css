@@ -48,7 +48,7 @@ footer { margin-top: 40px; color: var(--muted); }
 /* =========================
    IMÁGENES NÍTIDAS
 ========================= */
-img { height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; }
+img { width: 100%; image-rendering: pixelated; image-rendering: crisp-edges; border-radius: 8px; }
 
 /* =========================
    GALERÍA
@@ -126,8 +126,11 @@ img { height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; bo
 }
 
 .galeria-wrap #modal img {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 90vw;   /* ocupa hasta el 90% del ancho de la ventana */
+  max-height: 90vh;  /* ocupa hasta el 90% de la altura de la ventana */
+  width: auto;       /* mantiene proporción */
+  height: auto;      /* mantiene proporción */
+  border-radius: 8px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
