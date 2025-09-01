@@ -52,9 +52,15 @@ jobs:
             } else if (/\.(png|jpg|jpeg|gif)$/i.test(file.name)) {
               const relativePath = path.relative(process.cwd(), fullPath).replace(/\\/g,'/');
               const parts = relativePath.split('/');
-              const year = parts[2]; 
-              const category = parts[3] || 'Sin Categoria';
-              results.push({year: parseInt(year), category, url: relativePath});
+
+              // assets/img/2023/imagen.png
+              const year = parseInt(parts[2]);
+
+              results.push({
+                year,
+                tags: [],  // se edita manualmente después
+                url: relativePath
+              });
             }
           }
           return results;
@@ -64,6 +70,7 @@ jobs:
         fs.writeFileSync(outputFile, JSON.stringify(images, null, 2));
         console.log(`galeria.json generado con ${images.length} imágenes`);
         EOF
+
 
     # 4️⃣ Commit y push automático usando GITHUB_TOKEN
     - name: Commit y push
