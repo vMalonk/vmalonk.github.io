@@ -39,33 +39,40 @@ function populateFilters() {
     const defaultYearOpt = document.createElement('option');
     defaultYearOpt.value = "all";
     defaultYearOpt.textContent = "Todos";
+    defaultYearOpt.selected = true;
     yearFilter.appendChild(defaultYearOpt);
 
     const years = [...new Set(images.map(i => i.year))].sort((a,b) => b - a);
     years.forEach(y => {
-    const opt = document.createElement('option');
-    opt.value = y;
-    opt.textContent = y;
-    yearFilter.appendChild(opt);
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y;
+        yearFilter.appendChild(opt);
     });
 
-  // Categories/tags
-  const allTags = [...new Set(images.flatMap(img => img.tags))].sort();
-  const defaultOpt = document.createElement('option');
-  defaultOpt.value = "all";
-  defaultOpt.textContent = "Todas";
-  categoryFilter.appendChild(defaultOpt);
+  // Tags
+    categoryFilter.innerHTML = "";
 
-  allTags.forEach(tag => {
-    const opt = document.createElement('option');
-    opt.value = tag;
-    opt.textContent = tag;
-    categoryFilter.appendChild(opt);
-  });
+    const defaultCatOpt = document.createElement('option');
+    defaultCatOpt.value = "all";
+    defaultCatOpt.textContent = "Todas";
+    defaultCatOpt.selected = true; // opción por defecto
+    categoryFilter.appendChild(defaultCatOpt);
 
-  // Eventos
-  yearFilter.addEventListener('change', applyFilters);
-  categoryFilter.addEventListener('change', applyFilters);
+    const allTags = [...new Set(images.flatMap(img => img.tags))].sort();
+    allTags.forEach(tag => {
+        if(tag.trim() !== "") { // evita opciones vacías
+            const opt = document.createElement('option');
+            opt.value = tag;
+            opt.textContent = tag;
+            categoryFilter.appendChild(opt);
+        }
+    });
+
+
+    // Eventos
+    yearFilter.addEventListener('change', applyFilters);
+    categoryFilter.addEventListener('change', applyFilters);
 }
 
 // -------------------- FILTRAR --------------------
