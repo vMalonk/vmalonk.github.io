@@ -1,0 +1,59 @@
+name: Generar Galería JSON
+
+on:
+  push:
+    paths:
+      - 'assets/img/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Chequear repo
+      uses: actions/checkout@v3
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Generar galeria.json
+      run: |
+        node <<'EOF'
+        const fs = require('fs');
+        const path = require('path');
+
+        const imgDir = path.join(__dirname, '../../assets/img');
+        const outputFile = path.join(__dirname, '../../galeria.json');
+
+        function walkDir(dir) {
+          const files = fs.readdirSync(dir, { withFileTypes: true });
+          let results = [];
+          for (const file of files) {
+            const fullPath = path.join(dir, file.name);
+            if (file.isDirectory()) {
+              results = results.concat(walkDir(fullPath));
+            } else if (/\.(png|jpg|jpeg|gif)$/i.test(file.name)) {
+              const relativePath = path.relative(path.join(__dirname,'../../'), fullPath).replace(/\\/g,'/');
+              const parts = relativePath.split('/');
+              const year = parts[2]; 
+              const category = parts[3] || 'Sin Categoria';
+              results.push({year: parseInt(year), category, url: relativePath});
+            }
+          }
+          return results;
+        }
+
+        const images = walkDir(imgDir);
+        fs.writeFileSync(outputFile, JSON.stringify(images, null, 2));
+        console.log(`galeria.json generado con ${images.length} imágenes`);
+        EOF
+
+    - name: Commit y push
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add galeria.json
+        git commit -m "Actualizar galeria.json [Automático]" || echo "No hay cambios"
+        git push
