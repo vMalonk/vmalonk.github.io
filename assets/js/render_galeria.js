@@ -35,6 +35,12 @@ fetch('galeria.json')
 function populateFilters() {
   // Years
   const years = [...new Set(images.map(i => i.year))].sort((a,b) => b - a);
+
+  const defaultYearOpt = document.createElement('option');
+  defaultYearOpt.value = "all";
+  defaultYearOpt.textContent = "Todos";
+  yearFilter.appendChild(defaultYearOpt);
+
   years.forEach(y => {
     const opt = document.createElement('option');
     opt.value = y;
