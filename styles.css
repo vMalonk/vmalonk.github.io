@@ -5,10 +5,10 @@
 html, body { margin: 0; padding: 0; }
 
 :root {
-  --bg: #0f1115;    /* oscuro pero no negro puro */
-  --fg: #eaeef3;    /* texto claro */
-  --muted: #9aa4b2; /* texto secundario */
-  --brand: #6cf;    /* acento suave */
+  --bg: #7ed288;    /* oscuro pero no negro puro */
+  --fg: #14555a;    /* texto claro */
+  --muted: #14555a; /* texto secundario */
+  --brand: #14555a;    /* acento suave */
 }
 
 body {
