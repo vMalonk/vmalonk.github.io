@@ -1,0 +1,22 @@
+/* =======================
+   VARIABLES GLOBALES
+   ======================= */
+
+:root {
+  /* Colores principales */
+  --color-bg: #a3d9c9;     /* verde agua fondo */
+  --color-accent: #2d6a4f; /* verde oscuro */
+  --color-text: #1b4332;   /* texto */
+  --color-light: #ffffff;  /* blanco */
+
+  /* Tipografía */
+  --font-main: "Arial", sans-serif;
+
+  /* Espaciado */
+  --spacing-s: 0.5rem;
+  --spacing-m: 1rem;
+  --spacing-l: 2rem;
+
+  /* Bordes */
+  --radius: 12px;
+}

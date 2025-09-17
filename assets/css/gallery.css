@@ -1,0 +1,19 @@
+/* =======================
+   GALERÍA
+   ======================= */
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-m);
+  margin: var(--spacing-l) 0;
+}
+
+.gallery-item {
+  background: var(--color-accent);
+  color: var(--color-light);
+  padding: var(--spacing-m);
+  border-radius: var(--radius);
+  text-align: center;
+  min-width: 120px;
+}

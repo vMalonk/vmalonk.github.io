@@ -1,0 +1,36 @@
+/* =======================
+   LAYOUT GENERAL
+   ======================= */
+
+.page-container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "sidebar-left main sidebar-right"
+    "footer footer footer";
+  grid-template-columns: 60px 1fr 60px;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar-left {
+  grid-area: sidebar-left;
+}
+
+.sidebar-right {
+  grid-area: sidebar-right;
+}
+
+.main-content {
+  grid-area: main;
+}
+
+.footer {
+  grid-area: footer;
+}

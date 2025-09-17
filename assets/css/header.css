@@ -1,0 +1,46 @@
+/* =======================
+   HEADER
+   ======================= */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-m);
+  background: var(--color-accent);
+  color: var(--color-light);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-s);
+}
+
+.site-title {
+  font-size: 1.5rem;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: var(--spacing-m);
+}
+
+.nav-button {
+  text-decoration: none;
+  color: var(--color-light);
+}
+
+.header-buttons {
+  display: flex;
+  gap: var(--spacing-s);
+}
+
+.icon-button,
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-light);
+}

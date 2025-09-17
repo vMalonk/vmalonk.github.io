@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/assets/webassets/webicon.ico">
+    <title>vMalonk</title>
+
+    <!-- SEO básico -->
+    <meta name="description" content="Portfolio, comisiones y proyectos." />
+    <meta name="author" content="vMalonk" />
+    <meta property="og:title" content="vMalonk" />
+    <meta property="og:description" content="Portfolio, comisiones y proyectos." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://tuusuario.github.io/assets/img/preview.png" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="wrap">
+      <a href="index.html"><h1><img src="/assets/webassets/logo.png" id="logo"></h1></a>
+      <p>Pixel Artist · Comisiones abiertas</p>
+      <nav>
+        <a href="galeria.html">Galería</a>
+        <a href="sobre-mi.html">Sobre mí</a>
+        <a href="contacto.html">Contacto</a>
+        <a href="ToS.html">ToS</a>
+      </nav>
+    </header>
+
+    <main class="wrap">
+      <section id="galeria">
+        <a href="galeria.html"><h2>Galería</h2></a>
+        <div class="grid">
+          <!-- Repetí estos <figure> por cada imagen -->
+          <figure>
+            <img src="/assets/img/obra-01.png" alt="Título de la obra 01" loading="lazy" />
+            <figcaption>Obra 01 · 2025</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/img/obra-02.png" alt="Título de la obra 02" loading="lazy" />
+            <figcaption>Obra 02 · 2025</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section id="sobre-mi">
+        <h2>Sobre mí</h2>
+        <p>Breve bio. Estilos, herramientas y lo que ofrecés en comisiones.</p>
+      </section>
+
+      <section id="contacto">
+        <h2>Contacto</h2>
+        <ul>
+          <li>Email: <a href="mailto:valentinososas27@gmail.com">valentinososas27@gmail.com</a></li>
+          <li>X/Twitter: <a href="https://x.com/vMalonk" target="_blank" rel="noopener">@vMalonk</a></li>
+          <li>Instagram: <a href="https://bsky.app/profile/vmalonk.bsky.social" target="_blank" rel="noopener">@vmalonk.bsky.social</a></li>
+        </ul>
+        <!-- Si querés un formulario sin backend, ver sección 10 -->
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <small>© <span id="y"></span> vMalonk</small>
+    </footer>
+
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

@@ -3,68 +3,77 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/assets/webassets/webicon.ico">
-    <title>vMalonk</title>
-
-    <!-- SEO básico -->
-    <meta name="description" content="Portfolio, comisiones y proyectos." />
-    <meta name="author" content="vMalonk" />
-    <meta property="og:title" content="vMalonk" />
-    <meta property="og:description" content="Portfolio, comisiones y proyectos." />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://tuusuario.github.io/assets/img/preview.png" />
-    <link rel="stylesheet" href="/styles.css" />
+    <title>Malon</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/footer.css">
   </head>
   <body>
-    <header class="wrap">
-      <a href="index.html"><h1><img src="/assets/webassets/logo.png" id="logo"></h1></a>
-      <p>Pixel Artist · Comisiones abiertas</p>
-      <nav>
-        <a href="galeria.html">Galería</a>
-        <a href="sobre-mi.html">Sobre mí</a>
-        <a href="contacto.html">Contacto</a>
-        <a href="ToS.html">ToS</a>
-      </nav>
-    </header>
+    <!-- Contenedor general -->
+    <div class="page-container">
 
-    <main class="wrap">
-      <section id="galeria">
-        <a href="galeria.html"><h2>Galería</h2></a>
-        <div class="grid">
-          <!-- Repetí estos <figure> por cada imagen -->
-          <figure>
-            <img src="/assets/img/obra-01.png" alt="Título de la obra 01" loading="lazy" />
-            <figcaption>Obra 01 · 2025</figcaption>
-          </figure>
-          <figure>
-            <img src="/assets/img/obra-02.png" alt="Título de la obra 02" loading="lazy" />
-            <figcaption>Obra 02 · 2025</figcaption>
-          </figure>
+      <!-- Header -->
+      <header class="header">
+        <div class="logo">
+          <img src="assets/logo.png" alt="Logo Malon">
+          <h1 class="site-title">vMalonk</h1>
         </div>
-      </section>
+        <nav class="nav">
+          <ul class="nav-list">
+            <li><a href="#" class="nav-button">Inicio</a></li>
+            <li><a href="#" class="nav-button">Proyectos</a></li>
+            <li><a href="#" class="nav-button">Comisiones</a></li>
+            <li><a href="#" class="nav-button">Contacto</a></li>
+          </ul>
+        </nav>
+        <div class="header-buttons">
+          <button class="icon-button">?</button>
+          <button class="icon-button">☰</button>
+          <button class="theme-toggle"></button>
+        </div>
+      </header>
 
-      <section id="sobre-mi">
-        <h2>Sobre mí</h2>
-        <p>Breve bio. Estilos, herramientas y lo que ofrecés en comisiones.</p>
-      </section>
-
-      <section id="contacto">
-        <h2>Contacto</h2>
-        <ul>
-          <li>Email: <a href="mailto:valentinososas27@gmail.com">valentinososas27@gmail.com</a></li>
-          <li>X/Twitter: <a href="https://x.com/vMalonk" target="_blank" rel="noopener">@vMalonk</a></li>
-          <li>Instagram: <a href="https://bsky.app/profile/vmalonk.bsky.social" target="_blank" rel="noopener">@vmalonk.bsky.social</a></li>
+      <!-- Sidebar decorativo izquierdo -->
+      <aside class="sidebar sidebar-left">
+        <ul class="leaf-list">
+          <li class="leaf"></li>
+          <li class="leaf"></li>
+          <li class="leaf"></li>
         </ul>
-        <!-- Si querés un formulario sin backend, ver sección 10 -->
-      </section>
-    </main>
+      </aside>
 
-    <footer class="wrap">
-      <small>© <span id="y"></span> vMalonk</small>
-    </footer>
+      <!-- Contenido principal -->
+      <main class="main-content">
+        <section class="gallery">
+          <div class="gallery-item">IMG</div>
+          <div class="gallery-item">IMG</div>
+          <div class="gallery-item">IMG</div>
+        </section>
 
-    <script>
-      document.getElementById('y').textContent = new Date().getFullYear();
-    </script>
+        <section class="text-section">
+          <p class="intro-text">Texto introductorio...</p>
+          <p class="description">Más detalles de la página...</p>
+        </section>
+      </main>
+
+      <!-- Sidebar decorativo derecho -->
+      <aside class="sidebar sidebar-right">
+        <ul class="leaf-list">
+          <li class="leaf"></li>
+          <li class="leaf"></li>
+          <li class="leaf"></li>
+        </ul>
+      </aside>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p>&copy; 2025 Malon. Todos los derechos reservados.</p>
+      </footer>
+
+    </div>
   </body>
 </html>

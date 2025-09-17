@@ -1,0 +1,16 @@
+/* =======================
+   RESET
+   ======================= */
+
+/* Quitar márgenes/paddings por defecto */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Reset de tipografía */
+body {
+  font-family: sans-serif;
+  line-height: 1.5;
+}
