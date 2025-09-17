@@ -11,6 +11,6 @@
 
 /* Reset de tipografía */
 body {
-  font-family: sans-serif;
+  font-family: var(--font-body);
   line-height: 1.5;
 }

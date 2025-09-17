@@ -1,17 +1,19 @@
 /* =======================
    VARIABLES GLOBALES
    ======================= */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
 :root {
   /* Colores principales */
-  --color-bg: #a3d9c9;     /* verde agua fondo */
-  --color-accent: #2d6a4f; /* verde oscuro */
-  --color-text: #1b4332;   /* texto */
-  --color-light: #ffffff;  /* blanco */
+  --color-bg: #7ed288;     /* verde agua fondo */
+  --color-accent: #7ed288; /* verde oscuro */
+  --color-text: #14555a;   /* texto */
+  --color-light: #9edda0;  /* blanco */
 
   /* Tipografía */
-  --font-main: "Arial", sans-serif;
-
+  --font-title: "Press Start 2P", monospace;
+  --font-body: "VT323", monospace;
+  
   /* Espaciado */
   --spacing-s: 0.5rem;
   --spacing-m: 1rem;
