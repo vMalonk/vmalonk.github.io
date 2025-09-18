@@ -2,7 +2,7 @@
    GALERÍA
    ======================= */
 
-.gallery {
+.index_gallery {
   display: flex;
   justify-content: center;
   gap: var(--spacing-m);

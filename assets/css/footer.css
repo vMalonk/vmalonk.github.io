@@ -3,9 +3,23 @@
    ======================= */
 
 .footer {
+  position: relative;
   text-align: center;
   padding: var(--spacing-m);
   background: var(--color-accent);
   color: var(--color-light);
-  font-size: 0.9rem;
+  font-size: var(--font-size-m);
+}
+
+.footer::before {
+    content: "";
+    display: block;
+    height: 40px;
+    background: url("../webassets/footer_top.png") repeat-x;
+    background-size: auto 100%;
+    image-rendering: pixelated;
+    position: absolute;
+    top: -40px;
+    left: 0;
+    right: 0;
 }

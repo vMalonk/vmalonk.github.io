@@ -6,9 +6,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-m);
-  background: var(--color-accent);
-  color: var(--color-light);
+  padding: var(--spacing-s);
+  color: var(--color-text);
 }
 
 .logo {
@@ -17,20 +16,33 @@
   gap: var(--spacing-s);
 }
 
-.site-title {
-  font-family: var(--font-title);
-  font-size: 1.5rem;
+.header #header_logo {
+  max-width: 325px;
+  height: auto;
+}
+
+.header_text {
+    font-size: var(--font-size-l);
+    text-shadow:
+     1px 1px 0 var(--color-accent),
+    -1px 1px 0 var(--color-accent),
+     1px -1px 0 var(--color-accent),
+    -1px -1px 0 var(--color-accent);
 }
 
 .nav-list {
   list-style: none;
   display: flex;
+  align-content: end;
   gap: var(--spacing-m);
 }
 
-.nav-button {
-  text-decoration: none;
-  color: var(--color-light);
+.header #header_buttons {
+  max-width: 75px;
+}
+
+.nav-button img {
+  display: block;
 }
 
 .header-buttons {

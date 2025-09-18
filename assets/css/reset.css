@@ -11,6 +11,7 @@
 
 /* Reset de tipografía */
 body {
+  background-color: var(--color-bg);
   font-family: var(--font-body);
   line-height: 1.5;
 }
